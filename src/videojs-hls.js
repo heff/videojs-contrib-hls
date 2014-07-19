@@ -10,9 +10,18 @@
 
 var resolveUrl;
 
-videojs.Hls = videojs.Flash.extend({
+videojs.Hls = videojs.MediaTechController.extend({
   init: function(player, options, ready) {
     var source;
+
+    for (var prop in videojs.Flash.prototype) {
+      if (videojs.Flash.prototype.hasOwnProperty(prop)) {
+        this[prop] = videojs.Flash.prototype[prop];
+      }
+      if (videojs.Hls.prototype.hasOwnProperty(prop)) {
+        this[prop] = videojs.Hls.prototype[prop];
+      }
+    }
 
     // initialize Flash but remove the source first so it doesn't load it
     source = options.source;
